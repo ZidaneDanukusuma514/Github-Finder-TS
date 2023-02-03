@@ -7,23 +7,19 @@ export default function About(props: IAboutProps) {
   const [repos, setRepos] = React.useState<any>(null);
 
   const Github = axios.create({
-    baseURL: "https://api.github.com/",
+    baseURL: "https://api.github.com",
     headers: {
-      Authorization: `token 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`,
+      Authorization: `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`,
     },
   });
 
   const handleData = async () => {
-    await axios
-      .get("https://api.github.com/users/ZidaneDanukusuma514")
-      .then((respon) => {
-        setUser(respon.data);
-      });
-    await axios
-      .get("https://api.github.com/users/ZidaneDanukusuma514/repos")
-      .then((respon) => {
-        setRepos(respon.data);
-      });
+    await Github.get("/users/ZidaneDanukusuma514").then((respon) => {
+      setUser(respon.data);
+    });
+    await Github.get("/users/ZidaneDanukusuma514/repos").then((respon) => {
+      setRepos(respon.data);
+    });
   };
 
   React.useEffect(() => {
